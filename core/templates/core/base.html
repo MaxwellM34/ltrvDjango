@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="Lucky Twyn Rivers Variety is a trusted convenience store in Pickering, Ontario. Find snacks, drinks, groceries, and lottery tickets every day.">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="Lucky Twyn Rivers Variety | Pickering Convenience Store">
+    <meta property="og:description" content="Your local convenience store in Pickering, ON — open daily for snacks, groceries, lottery & more.">
+    <meta property="og:image" content="https://luckytwynriversvariety.ca/static/images/sign.jpg">
+    <meta property="og:url" content="https://luckytwynriversvariety.ca/">
+    <meta property="og:type" content="website">
+
     <title>{% block title %}Lucky Twyn Rivers Variety | Pickering, Ontario{% endblock %}</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
     <header class="site-header">
-        <img src="/static/images/sign.jpg" alt="Twyn Rivers Convenience Store Sign" class="store-sign">
+        <img src="/static/images/sign.jpg" alt="Lucky Twyn Rivers Convenience Store Sign" class="store-sign">
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -19,8 +31,10 @@
                 <li><a href="{% url 'suggestion' %}">Suggestion</a></li>
             </ul>
         </nav>
-        <h1 id="home">{{ store_info.name }}</h1>
-        <p>Pickering, Ontario</p>
+        <div class="store-heading">
+            <h1>{{ store_info.name }}</h1>
+            <p>Serving Pickering, Ontario with snacks, drinks, groceries & more</p>
+        </div>
     </header>
 
     <main class="site-main">
@@ -29,9 +43,10 @@
 
     <footer>
         <p>&copy; 2024 {{ store_info.name }}. All rights reserved.</p>
+        <p>Visit us at 123 Twyn Rivers Dr, Pickering, ON</p>
     </footer>
 
     <script src="/static/js/script.js"></script>
     {% block extra_js %}{% endblock %}
 </body>
-</html> 
+</html>
