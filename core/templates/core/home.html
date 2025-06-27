@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<section id="about">
+    <h2>About Us</h2>
+    <p>{{ about_content.content }}</p>
+</section>
+
+<section id="sales">
+    <h2>Sales</h2>
+    {% if sale_items %}
+        <ul id="sales-list" style="list-style:none; padding:0;">
+            {% for item in sale_items %}
+                <li style="display:flex; align-items:center; background:linear-gradient(90deg,#ffeaea 60%,#fff 100%); border-left:6px solid #b30000; margin-bottom:0.7rem; padding:0.7rem 1.2rem; border-radius:6px; font-size:1.1rem; box-shadow:0 1px 4px rgba(179,0,0,0.04); min-height:90px;">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}" style="max-width:100px; max-height:70px; border-radius:8px; margin-right:18px; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+                    {% endif %}
+                    <div>
+                        <strong>{{ item.title }}</strong>
+                        {% if item.description %}<br>{{ item.description }}{% endif %}
+                        {% if item.price %}
+                            <br><span class="price">${{ item.price }}</span>
+                            {% if item.original_price %}
+                                <span class="original-price" style="text-decoration:line-through; color:#888; margin-left:8px;">${{ item.original_price }}</span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <ul id="sales-list">
+            <li>Check back soon for our latest deals!</li>
+        </ul>
+    {% endif %}
+</section>
+
+<section id="contact">
+    <h2>Contact Details</h2>
+    <p><strong>Address:</strong> {{ store_info.address }}</p>
+    <p><strong>Phone:</strong> <a href="tel:{{ store_info.phone|cut:'('|cut:')'|cut:' '|cut:'-' }}" style="color:#b30000;text-decoration:underline;">{{ store_info.phone }}</a></p>
+    {% if store_info.email %}
+        <p><strong>Email:</strong> <a href="mailto:{{ store_info.email }}" style="color:#b30000;text-decoration:underline;">{{ store_info.email }}</a></p>
+    {% endif %}
+    <p><strong>Hours:</strong></p>
+    <ul class="store-hours">
+        {% for hours in weekly_hours %}
+            <li>
+                <strong>{{ hours.get_day_display }}</strong> <span class="open">{{ hours.opening_time|time:"g:i A" }}–{{ hours.closing_time|time:"g:i A" }}</span>
+            </li>
+        {% endfor %}
+        {% for hours in special_hours %}
+            <li>
+                <strong>{{ hours.date|date:"l, F j" }}</strong> <span style="color:#b30000;">{{ hours.special_note|default:"Hours may differ" }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %} 

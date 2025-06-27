@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Admin Panel - {{ store_info.name }}{% endblock %}
+
+{% block content %}
+<section>
+    <h2>Admin Panel</h2>
+    <p>Welcome to the admin panel for {{ store_info.name }}.</p>
+    <p>Use the links below to manage your store content:</p>
+    <ul>
+        <li><a href="/admin/core/storeinfo/" target="_blank">Edit Store Information</a></li>
+        <li><a href="/admin/core/aboutcontent/" target="_blank">Edit About Us Content</a></li>
+        <li><a href="/admin/core/storehours/" target="_blank">Manage Store Hours</a></li>
+        <li><a href="/admin/core/saleitem/" target="_blank">Manage Sales Items</a></li>
+        <li><a href="/admin/core/suggestion/" target="_blank">View Suggestions</a></li>
+    </ul>
+</section>
+
+<section>
+    <h2>Quick Stats</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Active Sales</h3>
+            <p>{{ sale_items.count }} items</p>
+        </div>
+        <div class="stat-card">
+            <h3>Store Hours</h3>
+            <p>{{ store_hours.count }} days configured</p>
+        </div>
+        <div class="stat-card">
+            <h3>New Suggestions</h3>
+            <p>{{ suggestions.count }} total</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Recent Suggestions</h2>
+    {% if suggestions %}
+        <div class="suggestions-list">
+            {% for suggestion in suggestions|slice:":5" %}
+                <div class="suggestion-item">
+                    <h4>{{ suggestion.name|default:"Anonymous" }}</h4>
+                    <p>{{ suggestion.suggestion|truncatewords:20 }}</p>
+                    <small>{{ suggestion.created_at|date:"M d, Y" }}</small>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No suggestions yet.</p>
+    {% endif %}
+</section>
+{% endblock %} 
